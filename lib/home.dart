@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:tic_toc_toe/classes/infoType.dart';
+import 'package:tic_toc_toe/tools/boardChecker.dart';
 import 'package:tic_toc_toe/tools/text.dart';
 
 class Home extends StatefulWidget {
@@ -11,6 +14,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int plOneScore = 0;
   int plTwoScore = 0;
+  List<String> gameBoard = List.filled(9, '');
+  bool turn = true;
 
   @override
   Widget build(BuildContext context) {
@@ -22,19 +27,22 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.grey[900],
       ),
       backgroundColor: Colors.grey[900],
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(width: double.infinity),
-          SizedBox(height: 20),
-          _getScoreBar(),
-          SizedBox(height: 80),
-          SizedBox(
-            height: 400,
-            child: _getView(),
-          )
-        ],
+      body: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(width: double.infinity),
+            SizedBox(height: 20),
+            _getScoreBar(),
+            SizedBox(height: 50),
+            Expanded(
+              child: _getView(),
+            ),
+            turn ? createText('turn 1') : createText('turn 2'),
+            SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }
@@ -66,14 +74,33 @@ class _HomeState extends State<Home> {
         crossAxisCount: 3,
       ),
       itemBuilder: (ctx, i) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(
-              color: Colors.grey,
-              width: 1,
-            ),
-          ),
+        return InkWell(
+          onTap: () {
+            setState(() {
+              if (gameBoard[i] == '') {
+                gameBoard[i] = turn ? '1' : '2';
+                turn = !turn;
+              } else {
+                return;
+              }
+            });
+          },
+          child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 1,
+                ),
+              ),
+              child: Center(
+                child: Text(
+                  '${gameBoard[i] == '1' ? 'X' : gameBoard[i] == '2' ? 'O' : ''}',
+                  style: TextStyle(
+                    fontSize: 60,
+                    color: gameBoard[i] == '1' ? Colors.red : Colors.blue,
+                  ),
+                ),
+              )),
         );
       },
     );
