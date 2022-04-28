@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:tic_toc_toe/classes/infoType.dart';
-import 'package:tic_toc_toe/tools/boardChecker.dart';
 import 'package:tic_toc_toe/tools/text.dart';
 
 class Home extends StatefulWidget {
@@ -84,6 +81,7 @@ class _HomeState extends State<Home> {
                 return;
               }
             });
+            _checkWinner();
           },
           child: Container(
               decoration: BoxDecoration(
@@ -104,5 +102,105 @@ class _HomeState extends State<Home> {
         );
       },
     );
+  }
+
+  void _resetGame() {
+    setState(() {
+      gameBoard = List.filled(9, '');
+    });
+  }
+
+  void _checkWinner() {
+    if (gameBoard[0] == gameBoard[1] &&
+        gameBoard[1] == gameBoard[2] &&
+        gameBoard[0] != '') {
+      setState(() {
+        if (gameBoard[0] == '1') {
+          plOneScore++;
+        } else {
+          plTwoScore++;
+        }
+        _resetGame();
+      });
+    } else if (gameBoard[3] == gameBoard[4] &&
+        gameBoard[4] == gameBoard[5] &&
+        gameBoard[3] != '') {
+      setState(() {
+        if (gameBoard[3] == '1') {
+          plOneScore++;
+        } else {
+          plTwoScore++;
+        }
+        _resetGame();
+      });
+    } else if (gameBoard[6] == gameBoard[7] &&
+        gameBoard[7] == gameBoard[8] &&
+        gameBoard[6] != '') {
+      setState(() {
+        if (gameBoard[6] == '1') {
+          plOneScore++;
+        } else {
+          plTwoScore++;
+        }
+        _resetGame();
+      });
+    } else if (gameBoard[0] == gameBoard[3] &&
+        gameBoard[3] == gameBoard[6] &&
+        gameBoard[0] != '') {
+      setState(() {
+        if (gameBoard[0] == '1') {
+          plOneScore++;
+        } else {
+          plTwoScore++;
+        }
+        _resetGame();
+      });
+    } else if (gameBoard[1] == gameBoard[4] &&
+        gameBoard[4] == gameBoard[7] &&
+        gameBoard[1] != '') {
+      setState(() {
+        if (gameBoard[1] == '1') {
+          plOneScore++;
+        } else {
+          plTwoScore++;
+        }
+        _resetGame();
+      });
+    } else if (gameBoard[2] == gameBoard[5] &&
+        gameBoard[5] == gameBoard[8] &&
+        gameBoard[2] != '') {
+      setState(() {
+        if (gameBoard[2] == '1') {
+          plOneScore++;
+        } else {
+          plTwoScore++;
+        }
+        _resetGame();
+      });
+    } else if (gameBoard[0] == gameBoard[4] &&
+        gameBoard[4] == gameBoard[8] &&
+        gameBoard[0] != '') {
+      setState(() {
+        if (gameBoard[0] == '1') {
+          plOneScore++;
+        } else {
+          plTwoScore++;
+        }
+        _resetGame();
+      });
+    } else if (gameBoard[2] == gameBoard[4] &&
+        gameBoard[4] == gameBoard[6] &&
+        gameBoard[2] != '') {
+      setState(() {
+        if (gameBoard[2] == '1') {
+          plOneScore++;
+        } else {
+          plTwoScore++;
+        }
+        _resetGame();
+      });
+    } else {
+      return;
+    }
   }
 }
