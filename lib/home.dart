@@ -199,7 +199,8 @@ class _HomeState extends State<Home> {
         }
         _resetGame();
       });
-    } else {
+    } else if (gameBoard.every((element) => element != '')) {
+      _resetGame();
       return;
     }
   }
